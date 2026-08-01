@@ -79,7 +79,7 @@ pip install -r requirements.txt
 
 ## Running the Application
 
-_Not available for v0.1.0-pre and before:_
+_Not available for v0.1.1-pre and before:_
 > Launch the program with:
 > 
 > ```bash
