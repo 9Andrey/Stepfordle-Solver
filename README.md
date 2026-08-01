@@ -92,7 +92,7 @@ _Usage of the modules:_
 
 > _Note: as of v0.1.1-pre the `gui_manager.py` module is unfinished._
 > 
-> ### Logic module: [logic_manager.py](logic_manager.py)
+> ### Logic module: [logic_manager.py](managers/logic_manager.py)
 > 
 > When calling the module, `initialise()` will automatically be executed.
 > 
@@ -180,7 +180,7 @@ _Usage of the modules:_
 > > [20, 21]
 > > ```
 > 
-> ### Image module: [image_manager.py](image_manager.py) 
+> ### Image module: [image_manager.py](managers/image_manager.py) 
 > 
 > When calling the module, `initialise()` will automatically be executed.
 > 
