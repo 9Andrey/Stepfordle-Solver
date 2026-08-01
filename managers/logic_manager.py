@@ -114,7 +114,7 @@ def getPossibleZones(*zones_info: tuple) -> list:
     return possible_zones
 
 
-def getALlStationsInZones(zones: tuple) -> tuple:
+def getAllStationsInZones(zones: tuple) -> tuple:
     """Given a list of zones, it outputs every station
     inside those zones."""
 
@@ -165,7 +165,7 @@ def givenGuessesGivePossibleTargets(*guesses: tuple) -> list:
 
     # Slowly narrow down the target
     possible_zones = getPossibleZones(*zones_info)
-    eligible_stations = getALlStationsInZones(possible_zones)
+    eligible_stations = getAllStationsInZones(possible_zones)
 
     # Extract station data from input
     stop_info = []
@@ -176,7 +176,7 @@ def givenGuessesGivePossibleTargets(*guesses: tuple) -> list:
 
 
 def getBestGuesses(*already_guessed: tuple) -> list:
-    """When you input every guess yoy did, it looks for what
+    """When you input every guess you did, it looks for what
     stations narrow it down the furthest."""
     
     available_targets = givenGuessesGivePossibleTargets(*already_guessed)

@@ -33,12 +33,31 @@ def createLabelsRegionLookup() -> None:
     )
 
 
+def clearTempFolder() -> None:
+    """Delete all contents of the temp folder except .gitkeep."""
+
+    global TEMP_DIR
+
+    if not TEMP_DIR.exists():
+        return
+
+    for item in TEMP_DIR.iterdir():
+        if item.name == ".gitkeep":
+            continue
+
+        if item.is_dir():
+            shutil.rmtree(item)
+        else:
+            item.unlink()
+
+
 def initialise() -> None:
     global image_index 
     image_index = 0
     
     declarePaths()
     createLabelsRegionLookup()
+    clearTempFolder()
   
   
 def fromStationIdsGetRegionsWithData(colour, alpha, *stations: int) -> list:
@@ -86,13 +105,6 @@ def highlightImage(*regions: tuple[int, int, int, int, str, int], output_name: s
     image_index += 1
     
     return output_path
-
-
-def clearTempFolder() -> None:
-    """Delete the entire temp folder and all its contents."""
-
-    if TEMP_DIR.exists():
-        shutil.rmtree(TEMP_DIR)
 
 
 # When module is called, setup essential stuff

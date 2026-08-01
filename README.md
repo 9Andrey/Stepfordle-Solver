@@ -42,7 +42,7 @@ Stepfordle-Solver/
 ├── CHANGELOG.md  
 ├── CREDITS.md
 ├── LICENSE         
-├── main.py                   # Application entry point
+├── main.py                   # Application entry point (still unavailable)
 ├── README.md
 └── requirements.txt          # Python dependencies
 ```
@@ -79,13 +79,138 @@ pip install -r requirements.txt
 
 ## Running the Application
 
-Launch the program with:
+_Not available for v0.1.0-pre and before:_
+> Launch the program with:
+> 
+> ```bash
+> python main.py
+> ```
+> 
+> or by double clicking the `main.py` file.
 
-```bash
-python main.py
-```
+_Usage of the modules:_
 
-or by double clicking the `main.py` file.
+> _Note: as of v0.1.0-pre the `gui_manager.py` module is unfinished._
+> 
+> ### Logic module: [logic_manager.py](logic_manager.py)
+> 
+> When calling the module, `initialise()` will automatically be executed.
+> 
+> 1. `getPossibleZones(*zones_info: tuple) -> list`
+> 
+> > Given none, one or more tuples `(zone_num, dist)` returns the eligible zones that are `tuple[1]` distance from `tuple[0]`. If no zones are given, all 10 zones will be returned.
+> > 
+> > **Example:**
+> > ```python
+> > getPossibleZones((1, 3), (9, 2))
+> > ```
+> > 
+> > Output:
+> > ```text
+> > [5]
+> > ```
+>  
+> 2. `getAllStationsInZones(zones: tuple) -> tuple`
+> 
+> > Given a list of zones, it outputs every station inside those zones. One or more inputs are accepted.
+> > 
+> > **Example:**
+> > ```python
+> > getAllStationsInZones((4, 5))
+> > ```
+> > 
+> > Output:
+> > ```text
+> > (38, 39, 40, 41, 42, 29, 37, 43, 44, 45)
+> > ```
+> 
+> 3. `getPossibleStationsFrom(possibilities: tuple, *stop_info: tuple) -> list`
+> 
+> > From the `possibilities` (a tuple with all station ids), get the possible station given the (in `stop_info`) station id `tuple[0]` is `tuple[1]` distance from target.
+> > 
+> > **Example:**
+> > ```python
+> > getPossibleStationsFrom((38, 39, 40, 41, 42, 29, 37, 43, 44, 45), (8, 3))
+> > ```
+> > 
+> > Output:
+> > ```text
+> > [38, 40, 29, 43]
+> > ```
+> 
+> 4. `givenGuessesGivePossibleTargets(*guesses: tuple) -> list`
+> 
+> > Given one or more tuples `(id, zone_dist, stop_dist)` get all possible targets.
+> > 
+> > **Example:**
+> > ```python
+> > givenGuessesGivePossibleTargets((7, 2, 7))
+> > ```
+> > 
+> > Output:
+> > ```text
+> > [25, 26]
+> > ```
+> 
+> 5. `getBestGuesses(*already_guessed: tuple) -> list`
+> 
+> > When you input every guess you did `(id, zone_dist, stop_dist)`, it looks for which stations narrow it down the furthest.
+> > 
+> > **Example:**
+> > ```python
+> > getBestGuesses((7, 2, 7))
+> > ```
+> > 
+> > Output:
+> > ```text
+> > [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 32, 33, 34, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75]
+> > ```
+> 
+> 6. `reduceGuessesWithTargets(targets: tuple, candidate_guesses: tuple) -> list`
+> 
+> > Priotitises `tragets` for the best guesses, if one or more of the `targets` is in `candidate_guesses` it outputs a list of every `candidate_guesses` that is in `targets`. If no duplicates exist, it returns `candidate_guesses`.
+> > 
+> > **Example:**
+> > ```python
+> > reduceGuessesWithTargets((20, 21), (19, 20, 21, 22))
+> > ```
+> > 
+> > Output:
+> > ```text
+> > [20, 21]
+> > ```
+> 
+> ### Image module: [image_manager.py](image_manager.py) 
+> 
+> When calling the module, `initialise()` will automatically be executed.
+> 
+> 1. `fromStationIdsGetRegionsWithData(colour, alpha, *stations: int) -> list`
+> 
+> > You input as many station ids as you want, this outputs a list composed of `(x, y, dx, dy, colour, alpha)` for as many stations you inputed. For `x`, `y`, `dx` and `dy` it looks with the station ids given in the dictionary created after `imageRegions.csv`. Colour is the RGB value in hex (e.g. `#ff0000`) and Alpha is the transparency (0-255), 0 being fully transparent and 255 being fully opaque.
+> > 
+> > **Example:**
+> > ```python
+> > fromStationIdsGetRegionsWithData("#ff0000", 100, 100, 1)
+> > ```
+> > 
+> > Output:
+> > ```text
+> > [(265, 1018, 234, 50, '#ff0000', 100), (343, 1155, 265, 50, '#ff0000', 100)]
+> > ```
+> 
+> 2. `highlightImage(*regions: tuple[int, int, int, int, str, int], output_name: str = "highlighted") -> Path`
+> 
+> 2. `highlightImage(*regions: tuple[int, int, int, int, str, int], output_name: str = "highlighted") -> Path`
+> > Highlight one or more rectangular regions of an image according to the lists given in the `fromStationIdsGetRegionsWithData()`. If `output_name` is inserted, it names it `output_name[index].png` if no `output_name` is set, it wil default to `highlighted[index].png`. Index refers to the generation number, to avoid duplicate names.
+> > 
+> > **Example:**
+> > ```python
+> > highlightImage((0, 0, 100, 100, "#ff0000", 100))
+> > ```
+> >
+> > Output: 
+> > 
+> > An image in `temp/` folder called `highlighted0.png` with a 100x100 region starting from 0, 0 highligthed in red with an alpha value of 100.
 
 ---
 
@@ -120,4 +245,5 @@ Please open an issue before making major changes to discuss the proposed improve
 Created by **9Andrey**.
 
 **GitHub:** https://github.com/9Andrey
+
 **Discord:** @fokacivilengineer
