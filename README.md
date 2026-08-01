@@ -90,7 +90,7 @@ _Not available for v0.1.1-pre and before:_
 
 _Usage of the modules:_
 
-> _Note: as of v0.1.0-pre the `gui_manager.py` module is unfinished._
+> _Note: as of v0.1.1-pre the `gui_manager.py` module is unfinished._
 > 
 > ### Logic module: [logic_manager.py](logic_manager.py)
 > 
