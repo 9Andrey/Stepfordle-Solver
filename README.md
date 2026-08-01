@@ -3,7 +3,7 @@ kmb_Route934's flagship game has been an icon for Cdex's SG Academy. With this l
 
 ## Overview
 
-For _v0.1.0-pre_
+For _v0.1.1-pre_
 
 An **unfinished** software where you can analyse Stepfordle gameplay and get data from different points. UI is still not available and the [main.py](main.py) function is empty, features will be implemented in future updates.
 
