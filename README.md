@@ -200,7 +200,6 @@ _Usage of the modules:_
 > 
 > 2. `highlightImage(*regions: tuple[int, int, int, int, str, int], output_name: str = "highlighted") -> Path`
 > 
-> 2. `highlightImage(*regions: tuple[int, int, int, int, str, int], output_name: str = "highlighted") -> Path`
 > > Highlight one or more rectangular regions of an image according to the lists given in the `fromStationIdsGetRegionsWithData()`. If `output_name` is inserted, it names it `output_name[index].png` if no `output_name` is set, it wil default to `highlighted[index].png`. Index refers to the generation number, to avoid duplicate names.
 > > 
 > > **Example:**
