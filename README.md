@@ -3,9 +3,9 @@ kmb_Route934's flagship game has been an icon for Cdex's SG Academy. With this l
 
 ## Overview
 
-For _v0.1.1-pre_
+For _v0.2.0-pre_
 
-An **unfinished** software where you can analyse Stepfordle gameplay and get data from different points. UI is still not available and the [main.py](main.py) function is empty, features will be implemented in future updates.
+An **unfinished** software where you can analyse Stepfordle gameplay and get data from different points. [main.py](main.py) function is empty, features will be implemented in future updates.
 
 ---
 
@@ -15,6 +15,7 @@ An **unfinished** software where you can analyse Stepfordle gameplay and get dat
 - Fully functional module managers.
 - CSV based data storage for easier changes in the future.
 - Modular architecture for easier maintenence and extension.
+- Full UI implemented.
 
 ---
 
@@ -27,6 +28,7 @@ Stepfordle-Solver/
 │   ├── connections.csv
 │   ├── default_map.png
 │   ├── imageRegions.csv
+│   ├── Montserrat.ttf
 │   ├── stations.csv
 │   └── zonesConnections.csv
 │ 
@@ -56,6 +58,7 @@ The project depends on:
 - NetworkX
 - Pillow
 - Pandas
+- Customtkinter
 
 ---
 
@@ -79,7 +82,7 @@ pip install -r requirements.txt
 
 ## Running the Application
 
-_Not available for v0.1.1-pre and before:_
+_Not available for v0.2.0-pre and before:_
 > Launch the program with:
 > 
 > ```bash
@@ -90,8 +93,6 @@ _Not available for v0.1.1-pre and before:_
 
 _Usage of the modules:_
 
-> _Note: as of v0.1.1-pre the `gui_manager.py` module is unfinished._
-> 
 > ### Logic module: [logic_manager.py](managers/logic_manager.py)
 > 
 > When calling the module, `initialise()` will automatically be executed.
@@ -210,6 +211,54 @@ _Usage of the modules:_
 > > Output: 
 > > 
 > > An image in `temp/` folder called `highlighted0.png` with a 100x100 region starting from 0, 0 highligthed in red with an alpha value of 100.
+> 
+> ### UI module: [gui_manager.py](managers/gui_manager.py) 
+> 
+> When calling the module, `initialise()` will automatically be executed.
+> 
+> 1. `App()` class (Setup)
+>
+> > Creates the UI app 
+> > 
+> > **Usage:**
+> > ```python
+> > app = App() # Create the app
+> > app.mainloop() # Launch the app
+> > ```
+> 
+> 2. `app.get_values()`
+>
+> > Get every value inserted in the guesses part.
+> > 
+> > **Example output:**
+> > ```text
+> > [{"station":"Stepford Victoria", "zone_distance":4, "stops":9},
+> >  {"station":"Benton", "zone_distance":1, "stops":4}]
+> > ```
+> 
+> 3. `app.set_status(text: str)`
+>
+> > Edits the label above the image, used for sending messages.
+> > 
+> > **Example:**
+> > ```python
+> > app.set_status("This is a new status.")
+> > ```
+> > 
+> > Output:
+> > In the UI, above the picture, the new message will be set.
+> 
+> 4. `app.set_image(path: Path)`
+> 
+> > Given a path, it changes the picture to the picture stored in the path. Used with the [image_manager.py](managers/image_manager.py) and the `highlightImage(...)` function, as it returns the generated picture's path.
+> >
+> > **Example:**
+> > ```python
+> > app.set_image(highlightImage((0, 0, 100, 100, "#ff0000", 100)))
+> > ```
+> > 
+> > Output:
+> > The picture in the UI is changed for an image generated in the `temp/` folder called `highlighted0.png` with a 100x100 region starting from 0, 0 highligthed in red with an alpha value of 100.
 
 ---
 

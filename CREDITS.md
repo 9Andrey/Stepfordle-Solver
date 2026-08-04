@@ -6,15 +6,23 @@ This project is built upon several excellent open-source libraries. Their work m
 
 ### NetworkX
 > Project: https://networkx.org/
+>
 > License: BSD 3-Clause License
 
 ### Pillow
 > Project: https://python-pillow.org/
+>
 > License: HPND License
 
 ### Pandas
 > Project: https://pandas.pydata.org/
+>
 > License: BSD 3-Clause License
+
+### Custom Tkinter
+> Porject: https://customtkinter.tomschimansky.com
+>
+> License: MIT License
 
 ## Acknowledgements
 
