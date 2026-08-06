@@ -6,7 +6,7 @@ _Closed Release_
 Fixed bugs:
 > - When clicking `-` or `+` in the UI, you could get the number lower than `min_value` or higher than `max_value`
 
-Hotfixes:
+Refactioring:
 > - [logic_manager.py](managers/logic_manager.py) rewriten to make easier usage and changes.
 
 ## 0.2.0-pre
@@ -25,7 +25,7 @@ Edits:
 ## 0.1.1-pre
 _Closed Release_
 
-Hotfixes:
+Refactioring:
 > - Corrected a typo in [logic_manager.py](managers/logic_manager.py).
 >
 > - Updated `clearTempFolder()` from [image_manager.py](managers/image_manager.py).
