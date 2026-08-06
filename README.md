@@ -3,7 +3,7 @@ kmb_Route934's flagship game has been an icon for Cdex's SG Academy. With this l
 
 ## Overview
 
-For _v0.2.0-pre_
+For _v0.2.1-pre_
 
 An **unfinished** software where you can analyse Stepfordle gameplay and get data from different points. [main.py](main.py) function is empty, features will be implemented in future updates.
 
@@ -82,7 +82,7 @@ pip install -r requirements.txt
 
 ## Running the Application
 
-_Not available for v0.2.0-pre and before:_
+_Not available for v0.2.1-pre and before:_
 > Launch the program with:
 > 
 > ```bash
@@ -226,14 +226,14 @@ _Usage of the modules:_
 > > app.mainloop() # Launch the app
 > > ```
 > 
-> 2. `app.get_values()`
+> 2. `app.get_values() -> list[dict["station":str, "zone_dist":int, "stop_dist":int]]`
 >
 > > Get every value inserted in the guesses part.
 > > 
 > > **Example output:**
 > > ```text
-> > [{"station":"Stepford Victoria", "zone_distance":4, "stops":9},
-> >  {"station":"Benton", "zone_distance":1, "stops":4}]
+> > [{"station":"Stepford Victoria", "zone_dist":4, "stop_dist":9},
+> >  {"station":"Benton", "zone_dist":1, "stop_dist":4}]
 > > ```
 > 
 > 3. `app.set_status(text: str)`
@@ -248,7 +248,7 @@ _Usage of the modules:_
 > > Output:
 > > In the UI, above the picture, the new message will be set.
 > 
-> 4. `app.set_image(path: Path)`
+> 4. `app.set_image(path: Path, image_size: tuple =(650, 406))`
 > 
 > > Given a path, it changes the picture to the picture stored in the path. Used with the [image_manager.py](managers/image_manager.py) and the `highlightImage(...)` function, as it returns the generated picture's path.
 > >
@@ -258,7 +258,7 @@ _Usage of the modules:_
 > > ```
 > > 
 > > Output:
-> > The picture in the UI is changed for an image generated in the `temp/` folder called `highlighted0.png` with a 100x100 region starting from 0, 0 highligthed in red with an alpha value of 100.
+> > The picture in the UI is changed for an image generated in the `temp/` folder called `highlighted0.png` with a 100x100 region starting from 0, 0 highligthed in red with an alpha value of 100. The image is 650 \* 406 px
 
 ---
 

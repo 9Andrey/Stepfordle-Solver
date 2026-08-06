@@ -12,11 +12,11 @@ def declarePaths() -> None:
     global BASE_DIR
     BASE_DIR = Path(__file__).resolve().parent.parent
 
-    # Data folder (Default image)
+    # Data folder
     global DATA_DIR
     DATA_DIR = BASE_DIR / "data"
     
-    # Temp folder (Store new pictures)
+    # Temp folder
     global TEMP_DIR
     TEMP_DIR = BASE_DIR / "temp"
 
@@ -26,12 +26,14 @@ def makeDictionaries():
         instead of looking in the CSVs"""
     
     # Get a dictionary with station data
-    global stations
     stations = (
         pd.read_csv(DATA_DIR / "stations.csv", skipinitialspace=True)
         .set_index("id")
         .to_dict(orient="index")
     )
+    
+    global station_names
+    station_names = [station["station_name"] for station in stations.values()]
 
     
 def initialise():
@@ -45,15 +47,8 @@ initialise()
 # Integer selection box
 class IntSpinbox(ctk.CTkFrame):
     def __init__(
-        self,
-        master,
-        value=0,
-        min_value=0,
-        max_value=20,
-        width=110,
-        **kwargs,
-    ):
-        super().__init__(master, fg_color="transparent", **kwargs)
+        self, master, value=0, min_value=0, max_value=14):
+        super().__init__(master=master, fg_color="transparent")
 
         self.min_value = min_value
         self.max_value = max_value
@@ -99,11 +94,13 @@ class IntSpinbox(ctk.CTkFrame):
 
 
     def increase(self):
-        self.set(self.get() + 1)
+        if self.get() == self.max_value: None
+        else: self.set(self.get() + 1)
 
 
     def decrease(self):
-        self.set(self.get() - 1)
+        if self.get() == self.min_value: None
+        else: self.set(self.get() - 1)
 
 
     def lock(self):
@@ -113,29 +110,27 @@ class IntSpinbox(ctk.CTkFrame):
 
 
 # Guess input row.
-class Guess(ctk.CTkFrame):
-    station_names = [station["station_name"] for station in stations.values()]
-    
-    def __init__(self, master, confirm_callback):
-        super().__init__(master, fg_color="transparent")
+class Guess(ctk.CTkFrame):    
+    def __init__(self, master, confirm_callback, callback_to_main):
+        super().__init__(master=master, fg_color="transparent")
 
         self.confirm_callback = confirm_callback
+        self.callback_to_main = callback_to_main
 
         self.station = ctk.CTkComboBox(
             self,
-            values=self.station_names,
+            values=station_names,
             width=220,
             state="readonly",
         )
         self.station.pack(side="left", padx=5)
 
-        if self.station_names:
-            self.station.set(self.station_names[0])
+        self.station.set(station_names[0])
 
-        self.zone = IntSpinbox(self, value=0)
+        self.zone = IntSpinbox(self, value=0, min_value=0, max_value=5)
         self.zone.pack(side="left", padx=5)
 
-        self.stops = IntSpinbox(self, value=0)
+        self.stops = IntSpinbox(self, value=0, min_value=0, max_value=14)
         self.stops.pack(side="left", padx=5)
 
         self.button = ctk.CTkButton(
@@ -154,31 +149,25 @@ class Guess(ctk.CTkFrame):
         self.button.configure(state="disabled")
 
         self.confirm_callback()
+        self.callback_to_main()
 
 
     def get_data(self):
         return {
             "station": self.station.get(),
-            "zone_distance": self.zone.get(),
-            "stops": self.stops.get(),
+            "zone_dist": self.zone.get(),
+            "stop_dist": self.stops.get(),
         }
 
 
-# List of all guesses
-class GuessesUI(ctk.CTkFrame):
+# List of all guesses and image manager
+class GuessesAndImageUI(ctk.CTkFrame):
     MAX_ROWS = 6
-    station_names = [station["station_name"] for station in stations.values()]
 
-
-    def __init__(
-        self,
-        master,
-        image_size=(850, 415),
-        **kwargs,
-    ):
-        super().__init__(master, **kwargs)
+    def __init__(self, master, callback_to_main):
+        super().__init__(master=master)
         
-        self.image_size = image_size
+        self.callback_to_main = callback_to_main
 
         self.rows = []
 
@@ -189,10 +178,10 @@ class GuessesUI(ctk.CTkFrame):
 
         self.status_label = ctk.CTkLabel(
             self,
-            text="Ready",
-            anchor="w",
-            font=ctk.CTkFont(size=18, weight="bold"),
-        )
+            text="Status",
+            font=ctk.CTkFont(size=18, weight="bold")
+            )
+        
         self.status_label.pack(fill="x", padx=10, pady=(5, 10))
         
         self.image_label = ctk.CTkLabel(self, text="")
@@ -200,7 +189,7 @@ class GuessesUI(ctk.CTkFrame):
 
         self.legend_label = ctk.CTkLabel(
             self,
-            text="Map legend",
+            text="Legend",
             font=ctk.CTkFont(size=14),
         )
         self.legend_label.pack(pady=(5, 10))
@@ -210,13 +199,15 @@ class GuessesUI(ctk.CTkFrame):
 
     def add_row(self):
         if len(self.rows) >= self.MAX_ROWS:
-            return
+            return None
 
         row = Guess(
             self.input_frame,
-            self.add_row)
+            self.add_row,
+            self.callback_to_main
+            )
 
-        row.pack(fill="x", pady=4)
+        row.pack(fill="x", pady=4,  anchor="center") # idk why it anchors to the left
         self.rows.append(row)
 
 
@@ -240,11 +231,11 @@ class GuessesUI(ctk.CTkFrame):
         self.legend_label.configure(text=text)
 
 
-    def set_image(self, path: Path):
+    def set_image(self, path: Path, image_size=(650, 406)):
         image = ctk.CTkImage(
             light_image=Image.open(path),
             dark_image=Image.open(path),
-            size=self.image_size,
+            size=image_size,
         )
 
         self.current_image = image
@@ -252,7 +243,7 @@ class GuessesUI(ctk.CTkFrame):
 
 
 class App(ctk.CTk):
-    def __init__(self):
+    def __init__(self, callback_to_main):
         super().__init__()
 
         self.title("Stepfordle Solver")
@@ -260,7 +251,7 @@ class App(ctk.CTk):
 
         ctk.set_appearance_mode("system")
         
-        self.ui = GuessesUI(self)
+        self.ui = GuessesAndImageUI(self, callback_to_main)
         self.ui.pack(fill="both", expand=True)
 
         # Example setup
@@ -268,7 +259,7 @@ class App(ctk.CTk):
         self.ui.set_legend("Blue: available guesses | Green: best guess")
 
 
-    def get_values(self):
+    def get_values(self) -> list[dict["station":str, "zone_dist":int, "stop_dist":int]]:
         return self.ui.get_all_values()
 
 
@@ -276,14 +267,5 @@ class App(ctk.CTk):
         self.ui.set_status(text)
 
 
-    def set_map(self, path: Path):
-        self.ui.set_image(path)
-
-
-    def set_legend(self, text: str):
-        self.ui.set_legend(text)
-
-
-if __name__ == "__main__":
-    app = App()
-    app.mainloop()
+    def set_map(self, path: Path, image_size: tuple =(650, 406)):
+        self.ui.set_image(path, image_size)

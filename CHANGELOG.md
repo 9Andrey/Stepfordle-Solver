@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1-pre
+_Closed Release_
+
+Fixed bugs:
+> - When clicking `-` or `+` in the UI, you could get the number lower than `min_value` or higher than `max_value`
+
+Hotfixes:
+> - [logic_manager.py](managers/logic_manager.py) rewriten to make easier usage and changes.
+
 ## 0.2.0-pre
 _Closed Release_
 
