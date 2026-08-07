@@ -1,6 +1,17 @@
 # Changelog
 
+# 0.3.1-beta
+
+Features:
+> - Added titles to the user interface to make its use simpler.
+
+Fixed bugs:
+> - Added an if statement to ensure "divide by zero" error does not occur.
+>
+> - [.gitignore](.gitignore) file did not ignore temporary files created by the software, now fixed.
+
 # 0.3.0-beta
+
 Features:
 > - Added `bestGuessGivenTargets(*already_guessed: tuple) -> list` to ensure easier usage of [logic_manager.py](managers/logic_manager.py) module.
 > 
