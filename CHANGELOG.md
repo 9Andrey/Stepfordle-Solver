@@ -1,5 +1,14 @@
 # Changelog
 
+# 0.3.0-beta
+Features:
+> - Added `bestGuessGivenTargets(*already_guessed: tuple) -> list` to ensure easier usage of [logic_manager.py](managers/logic_manager.py) module.
+> 
+> - Added [main.py](main.py) functionality and updated [README.md](README.md) accordingly
+
+Edits:
+> - Corrected error in [CHANGELOG.md](CHANGELOG.md) in v0.2.1-pre where it said `logic_manager.py` instead of `gui_manager.py`
+
 ## 0.2.1-pre
 _Closed Release_
 
@@ -7,7 +16,7 @@ Fixed bugs:
 > - When clicking `-` or `+` in the UI, you could get the number lower than `min_value` or higher than `max_value`
 
 Refactioring:
-> - [logic_manager.py](managers/logic_manager.py) rewriten to make easier usage and changes.
+> - [gui_manager.py](managers/gui_manager.py) rewriten to make easier usage and changes.
 
 ## 0.2.0-pre
 _Closed Release_

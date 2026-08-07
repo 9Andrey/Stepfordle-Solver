@@ -3,9 +3,9 @@ kmb_Route934's flagship game has been an icon for Cdex's SG Academy. With this l
 
 ## Overview
 
-For _v0.2.1-pre_
+For _v0.2.0-beta_
 
-An **unfinished** software where you can analyse Stepfordle gameplay and get data from different points. [main.py](main.py) function is empty, features will be implemented in future updates.
+A software to perfectly play kmb_Route934's Stepfordle game, with it's UI you can input your made guesses and the software will instantly tell you what your next guess should be so you can optimise your game. Use it responsibly.
 
 ---
 
@@ -28,7 +28,6 @@ Stepfordle-Solver/
 │   ├── connections.csv
 │   ├── default_map.png
 │   ├── imageRegions.csv
-│   ├── Montserrat.ttf
 │   ├── stations.csv
 │   └── zonesConnections.csv
 │ 
@@ -82,7 +81,6 @@ pip install -r requirements.txt
 
 ## Running the Application
 
-_Not available for v0.2.1-pre and before:_
 > Launch the program with:
 > 
 > ```bash
@@ -181,6 +179,20 @@ _Usage of the modules:_
 > > [20, 21]
 > > ```
 > 
+> 7. `bestGuessGivenTargets(*already_guessed: tuple) -> list`
+>
+> > When inputing the guesses made, it narrows it down the furthest to get the best stations for the next guess
+> >
+> > **Example:**
+> > ```python
+> > bestGuessGivenTargets((7, 2, 7))
+> > ```
+> > 
+> > Output:
+> > ```text
+> > [25, 26]
+> > ```
+>
 > ### Image module: [image_manager.py](managers/image_manager.py) 
 > 
 > When calling the module, `initialise()` will automatically be executed.

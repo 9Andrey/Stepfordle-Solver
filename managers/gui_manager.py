@@ -142,11 +142,15 @@ class Guess(ctk.CTkFrame):
         self.button.pack(side="left", padx=5)
 
 
-    def confirm(self):
+    def lock_row(self):
         self.station.configure(state="disabled")
         self.zone.lock()
         self.stops.lock()
         self.button.configure(state="disabled")
+
+
+    def confirm(self):
+        self.lock_row()
 
         self.confirm_callback()
         self.callback_to_main()
@@ -255,7 +259,7 @@ class App(ctk.CTk):
         self.ui.pack(fill="both", expand=True)
 
         # Example setup
-        self.ui.set_status("Start by setting a guess!")
+        self.ui.set_status("Start by setting a guess, altough your best first guess is Stepford Victoria!")
         self.ui.set_legend("Blue: available guesses | Green: best guess")
 
 

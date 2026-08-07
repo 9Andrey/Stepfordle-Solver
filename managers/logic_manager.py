@@ -175,7 +175,7 @@ def givenGuessesGivePossibleTargets(*guesses: tuple) -> list:
     return getPossibleStationsFrom(eligible_stations, *stop_info)
 
 
-def getBestGuesses(*already_guessed: tuple) -> list:
+def getAllBestGuesses(*already_guessed: tuple) -> list:
     """When you input every guess you did, it looks for what
     stations narrow it down the furthest."""
     
@@ -217,6 +217,16 @@ def reduceGuessesWithTargets(targets: tuple, candidate_guesses: tuple) -> list:
     
     if len(best_guesses) == 0: return candidate_guesses
     return best_guesses
+
+
+def bestGuessGivenTargets(*already_guessed: tuple) -> list:
+    """When inputing the guesses made, it narrows it down the
+    furthest to get the best stations for the next guess"""
+
+    all_best_guesses = getAllBestGuesses(*already_guessed)
+    available_targets = givenGuessesGivePossibleTargets(*already_guessed)
+    
+    return reduceGuessesWithTargets(available_targets, all_best_guesses)
 
 
 # When module is called, setup essential stuff
