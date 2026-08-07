@@ -57,6 +57,10 @@ def whenGuessInserted():
         guesses_list.append((id, zone_dist, stop_dist))
         
     available_targets = logic.givenGuessesGivePossibleTargets(*guesses_list)
+    if len(available_targets) == 0: 
+        app.set_status("The inserted guess is not possible given the previous context. Reset the app.")
+        return None
+    
     best_guesses = logic.bestGuessGivenTargets(*guesses_list)
     
     if len(available_targets) == 1: 

@@ -175,6 +175,16 @@ class GuessesAndImageUI(ctk.CTkFrame):
 
         self.rows = []
 
+        self.title_frame = ctk.CTkFrame(self)
+        self.title_frame.pack(fill="x", padx=10, pady=10)
+        
+        self.station_title = ctk.CTkLabel(self.title_frame, width=220, text="Station")
+        self.station_title.pack(side="left", padx=5)
+        self.zone_title = ctk.CTkLabel(self.title_frame, width=110, text="Zone distance")
+        self.zone_title.pack(side="left", padx=5)
+        self.stop_title = ctk.CTkLabel(self.title_frame, width=110, text="Station distance")
+        self.stop_title.pack(side="left", padx=5)
+
         self.input_frame = ctk.CTkFrame(self)
         self.input_frame.pack(fill="x", padx=10, pady=10)
 
@@ -211,7 +221,7 @@ class GuessesAndImageUI(ctk.CTkFrame):
             self.callback_to_main
             )
 
-        row.pack(fill="x", pady=4,  anchor="center") # idk why it anchors to the left
+        row.pack(fill="x", pady=4)
         self.rows.append(row)
 
 
