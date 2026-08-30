@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.3.2-beta
+
+Features:
+> - Added support for Stepford County Railway version 2.4
+
 # 0.3.1-beta
 
 Features:

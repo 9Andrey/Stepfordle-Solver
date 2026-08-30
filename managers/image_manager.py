@@ -63,7 +63,7 @@ def initialise() -> None:
 def fromStationIdsGetRegionsWithData(colour, alpha, *stations: int) -> list:
     """You input as many station ids as you want, this outputs
     a list composed of (x, y, dx, dy, colour, alpha) for as many 
-    stations you inputed."""
+    stations you inputed. Alpha ∈ [0, 256]"""
     
     output = []
     for id in stations:
@@ -109,3 +109,5 @@ def highlightImage(*regions: tuple[int, int, int, int, str, int], output_name: s
 
 # When module is called, setup essential stuff
 initialise()
+
+highlightImage(*fromStationIdsGetRegionsWithData("#ff0000", 100, *list(range(76))))

@@ -3,7 +3,7 @@ kmb_Route934's flagship game has been an icon for Cdex's SG Academy. With this l
 
 ## Overview
 
-For _v0.3.1-beta_
+For _v0.3.2-beta_
 
 A software to perfectly play kmb_Route934's Stepfordle game, with it's UI you can input your made guesses and the software will instantly tell you what your next guess should be so you can optimise your game. Use it responsibly.
 
